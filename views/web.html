@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆页面</title>
+
+    <link rel="stylesheet" href="../static/css/chat.css">
+</head>
+<body>
+<div class="talk_con"  id="output_msg">
+
+    <div class="talk_input">
+        <!--<div  class="input-box">-->
+        <input id="input" type="text"  />
+        <input type="hidden" name="token" id="token">
+        <button onclick="send()" class="talk_sub">Send</button>
+        <!--<input type="button" value="发送" class="talk_sub" id="talksub">-->
+    </div>
+    <div class="talk_show">
+        <pre id="output" ></pre>
+    </div>
+</div>
+</body>
+
+<script>
+    document.getElementById("token").value = window.localStorage.getItem("token")
+    var input = document.getElementById("input");
+    var output = document.getElementById("output");
+
+    // var Talksub =document.getElementById("talksub");
+
+    var socket = new WebSocket("ws://127.0.0.1:8080/ws/join?name="+{{.name}});
+    // var socket = new WebSocket("ws://127.0.0.1:1234/ws");
+
+    socket.onopen = function () {
+        output.innerHTML += "用户:"+"{{.name}} "+"已上线\n";
+    };
+
+    socket.onmessage = function (e) {
+        var talker = e.data.split(":")[0]
+        var words = e.data.split(":")[1]
+        var str = ""
+
+        if (talker == {{.name}}){
+            str = '<div class="btalk"><span>' +"你说:" + words  +'</span></div>' ;
+        }else{
+            str = '<div class="atalk"><span>' + e.data  +'</span></div>' ;
+        }
+
+        output.innerHTML +=  str;
+
+    };
+
+    function send() {
+        socket.send(input.value);
+        input.value = "";
+    }
+</script>
