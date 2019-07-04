@@ -1,5 +1,7 @@
 # chat
 beego +的WebSocket聊天室，数据库使用的是MySQL
+#
+
 1.环境准备
   1）安装beego及bee工具,这个可以网上搜下教程
      可以参考 https://beego.me/
@@ -28,7 +30,8 @@ beego +的WebSocket聊天室，数据库使用的是MySQL
 
    打开浏览器，输入  http://127.0.0.1:8080/
  
+ 下面是效果图
  
  
 ![https://github.com/Altruiste1/image/blob/master/login.png]
-![https://github.com/Altruiste1/image/blob/master/chat.png]
+![https://github.com/Altruiste1/image/blob/master/chat.png]  
