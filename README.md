@@ -24,6 +24,11 @@ beego +的WebSocket聊天室，数据库使用的是MySQL
    port=3306
    database=mytest
   
- 4.打开浏览器，运行  http://127.0.0.1:8080/
+ 4. 进入到github.com/Altruiste1/chat目录，执行bee run,运行成功后
+
+   打开浏览器，输入  http://127.0.0.1:8080/
  
  
+ 
+![https://github.com/Altruiste1/image/blob/master/login.png]
+![https://github.com/Altruiste1/image/blob/master/chat.png]
