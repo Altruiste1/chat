@@ -1,5 +1,5 @@
 # chat
-beego +的WebSocket聊天室，数据库使用的是MySQL
+beego + WebSocket聊天室，数据库使用的是MySQL，使用websocket保持长连接，后期会加上token，及session
 #
 
 1.环境准备
