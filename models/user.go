@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
@@ -13,15 +14,20 @@ type TextModel struct{
 // table:user_info
 type UserInfo struct{
 	Name string `orm:"pk;column(name)"`
-	Password string `orm:column(password)`
+	Password string
 }
 
 func init(){
 	driverName,dataSource:=fetch_config()
-	//orm.RegisterDataBase("sys", driverName, "root:123456@tcp(127.0.0.1:3306)/mytest?charset=utf8")
-	orm.RegisterDataBase("default", driverName, dataSource)
+	fmt.Println(driverName,dataSource)
+	orm.RegisterDriver("mysql", orm.DRMySQL)
+	if err:=orm.RegisterDataBase("default", driverName, dataSource);err!=nil{
+		panic(err)
+	}
+
+	// 注册模型，没有的话会报错，但可以通过orm.RunSyncdb创建
 	orm.RegisterModel(new(UserInfo))
-//	orm.RunSyncdb("default",true,true)
+	orm.RunSyncdb("default",false,true)
 }
 
 func fetch_config()(string,string){
@@ -46,7 +52,6 @@ func Insert(info *UserInfo) error {
 }
 
 func Read(u *UserInfo)error{
-
 	o:=orm.NewOrm()
 	if err := o.Read(u);err!=nil{
 		return err
